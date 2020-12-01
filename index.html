@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+
+    <style>
+
+        .calculator{
+            display: flex;
+            flex-direction: column;
+            width: 200px;
+            border: 1px solid black;
+        }
+
+        .display{
+            width: 200px;
+            height: 80px;
+        }
+
+        .button{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            width: 200px;
+            height: 150px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <div class="display">
+            <input type="text" id="input">
+        </div>
+        <div class="button">
+            <button onclick="clear()">AC</button>
+            <button onclick="backspace()">back</button>
+            <button onclick="percent()">%</button>
+            <button onclick="" class="operator">/</button>
+            <button onclick="" class="number">7</button>
+            <button onclick="" class="number">8</button>
+            <button onclick="" class="number">9</button>
+            <button onclick="" class="operator">*</button>
+            <button onclick="" class="number">4</button>
+            <button onclick="" class="number">5</button>
+            <button onclick="" class="number">6</button>
+            <button onclick="" class="operator">-</button>
+            <button onclick="" class="number">1</button>
+            <button onclick="" class="number">2</button>
+            <button onclick="" class="number">3</button>
+            <button onclick="" class="operator">+</button>
+            <button onclick="negation()">+/-</button>
+            <button onclick="" class="number">0</button>
+            <button onclick="" class="number">.</button>
+            <button onclick="operate()">=</button>
+        </div>
+    </div>
+
+
+    <script>
+
+        let input=null;
+        let result=null;
+        let number=document.querySelectorAll('.number');
+        let operator=document.querySelectorAll('.operator');
+
+        function addition(a,b){
+            return a+b;
+            
+        }
+
+        function subtraction(a,b){
+            return a-b;
+        }
+
+        function multiplication(a,b){
+            return a*b;
+        }
+
+        function division(a,b){
+            return a/b;
+        }
+
+        function operate(){
+            input=document.getElementById("input").value;
+            let len=input.length;
+            for(i=0;i<len;i++){
+                let ch=input.charAt(i);
+                
+                if(ch=="+"){
+                    console.log("Addition");
+                    let a=parseInt(input[i-1]);
+                    let b=parseInt(input[i+1]);
+                    result=addition(a,b);
+                    console.log(result);
+                }
+                if(ch=="-"){
+                    console.log("Subtraction");
+                    let a=parseInt(input[i-1]);
+                    let b=parseInt(input[i+1]);
+                    result=subtraction(a,b);
+                    console.log(result);
+                }
+                if(ch=="*"){
+                    console.log("Multiplication");
+                    let a=parseInt(input[i-1]);
+                    let b=parseInt(input[i+1]);
+                    result=multiplication(a,b);
+                    console.log(result);
+                }
+                if(ch=="/"){
+                    console.log("Division");
+                    let a=parseInt(input[i-1]);
+                    let b=parseInt(input[i+1]);
+                    result=division(a,b);
+                    console.log(result);
+                }
+            }
+            document.getElementById("input").value = result;
+            console.log(input);
+        }
+
+        number.forEach(numbers=>{
+            numbers.addEventListener('click',function getNumber(){
+                let num=numbers.textContent;
+                inputDisplay(num);
+            });
+        });
+
+        operator.forEach(operators=>{
+            operators.addEventListener('click',function getoperator(){
+                let oper=operators.textContent;
+                inputDisplay(oper);
+            });
+        });
+        
+        function inputDisplay(num){
+            let output=document.getElementById("input").value;
+            document.getElementById("input").value=output+num;
+        }
+
+        function clear(){
+            document.getElementById("input").value="";
+        }
+
+        function backspace(){
+            let temp=document.getElementById("input").value;
+            console.log(temp);
+            temp = temp.substring(0, temp.length - 1);
+            document.getElementById("input").value=temp;
+            console.log(temp);
+        }
+
+        function negation(){
+            let temp=document.getElementById("input").value;
+            if(temp>=0)
+                temp=-Math.abs(temp);
+            else if(temp<0)
+                temp=Math.abs(temp);
+            document.getElementById("input").value=temp;
+            console.log(temp);
+        }
+
+        function percent(){
+            let temp=document.getElementById("input").value;
+            temp=temp/100;
+            document.getElementById("input").value=temp;
+        }
+
+    </script>
+    
+</body>
+</html>
